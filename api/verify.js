@@ -23,6 +23,12 @@ export default async function handler(req, res) {
     const correctNumber = rows[0].correct_number;
     const isCorrect = parseInt(selectedNumber) === correctNumber;
 
+    if (isCorrect) {
+      await sql`
+        DELETE FROM challenges WHERE id = ${challengeId};
+      `;
+    }
+
     res.status(200).json({ success: isCorrect });
   } catch (error) {
     console.error(error);

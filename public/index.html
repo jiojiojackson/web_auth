@@ -25,7 +25,6 @@
     <pre><code>
     {
       "challengeId": "...",
-      "numbers": [1, 2, 3],
       "correctNumber": 2
     }
     </code></pre>
@@ -49,10 +48,10 @@
   <script>
     document.getElementById('start-demo').addEventListener('click', async () => {
       const response = await fetch('/api/challenge', { method: 'POST' });
-      const { challengeId, numbers, correctNumber } = await response.json();
+      const { challengeId, correctNumber } = await response.json();
 
       const clientWindow = window.open(`/client.html?correctNumber=${correctNumber}`, 'client', 'width=400,height=400');
-      const authWindow = window.open(`/auth.html?challengeId=${challengeId}&numbers=${numbers.join(',')}`, 'auth', 'width=400,height=400');
+      const authWindow = window.open(`/api/auth?challengeId=${challengeId}`, 'auth', 'width=400,height=400');
     });
   </script>
 </body>

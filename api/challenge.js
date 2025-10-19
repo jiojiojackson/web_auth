@@ -20,20 +20,11 @@ export default async function handler(req, res) {
     const challengeId = uuidv4();
 
     await sql`
-      CREATE TABLE IF NOT EXISTS challenges (
-        id TEXT PRIMARY KEY,
-        numbers INTEGER[],
-        correct_number INTEGER,
-        created_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP
-      );
-    `;
-
-    await sql`
       INSERT INTO challenges (id, numbers, correct_number)
       VALUES (${challengeId}, ${numbers}, ${correctNumber});
     `;
 
-    res.status(200).json({ challengeId, numbers, correctNumber });
+    res.status(200).json({ challengeId, correctNumber });
   } catch (error) {
     console.error(error);
     res.status(500).json({ error: 'Internal Server Error' });
