@@ -1,0 +1,59 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Digital Authentication Service</title>
+  <style>
+    body { font-family: sans-serif; }
+    .container { max-width: 800px; margin: 0 auto; padding: 20px; }
+    pre { background-color: #f4f4f4; padding: 10px; border-radius: 5px; }
+  </style>
+</head>
+<body>
+  <div class="container">
+    <h1>Digital Authentication Service</h1>
+    <p>This service provides a simple digital authentication mechanism. The client displays a number, and the user must select the correct number from a set of three on the authentication page.</p>
+
+    <h2>API Usage</h2>
+    <h3>POST /api/challenge</h3>
+    <p>Creates a new authentication challenge.</p>
+    <pre><code>
+    curl -X POST /api/challenge
+    </code></pre>
+    <p>Returns:</p>
+    <pre><code>
+    {
+      "challengeId": "...",
+      "numbers": [1, 2, 3],
+      "correctNumber": 2
+    }
+    </code></pre>
+
+    <h3>POST /api/verify</h3>
+    <p>Verifies an authentication challenge.</p>
+    <pre><code>
+    curl -X POST /api/verify -H "Content-Type: application/json" -d '{ "challengeId": "...", "selectedNumber": 2 }'
+    </code></pre>
+    <p>Returns:</p>
+    <pre><code>
+    {
+      "success": true
+    }
+    </code></pre>
+
+    <h2>Demo</h2>
+    <button id="start-demo">Start Demo</button>
+  </div>
+
+  <script>
+    document.getElementById('start-demo').addEventListener('click', async () => {
+      const response = await fetch('/api/challenge', { method: 'POST' });
+      const { challengeId, numbers, correctNumber } = await response.json();
+
+      const clientWindow = window.open(`/client.html?correctNumber=${correctNumber}`, 'client', 'width=400,height=400');
+      const authWindow = window.open(`/auth.html?challengeId=${challengeId}&numbers=${numbers.join(',')}`, 'auth', 'width=400,height=400');
+    });
+  </script>
+</body>
+</html>

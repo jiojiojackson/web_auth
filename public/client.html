@@ -1,0 +1,21 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Client</title>
+  <style>
+    body { font-family: sans-serif; display: flex; justify-content: center; align-items: center; height: 100vh; }
+    .number { font-size: 5rem; }
+  </style>
+</head>
+<body>
+  <div class="number"></div>
+
+  <script>
+    const urlParams = new URLSearchParams(window.location.search);
+    const correctNumber = urlParams.get('correctNumber');
+    document.querySelector('.number').textContent = correctNumber;
+  </script>
+</body>
+</html>

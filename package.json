@@ -1,0 +1,16 @@
+{
+  "name": "digital-authentication-service",
+  "version": "1.0.0",
+  "description": "A digital authentication service built with Node.js for Vercel deployment.",
+  "main": "api/index.js",
+  "type": "module",
+  "scripts": {
+    "start": "vercel dev",
+    "test": "node test-logic.js"
+  },
+  "dependencies": {
+    "@vercel/postgres": "^0.5.1",
+    "dotenv": "^16.3.1",
+    "uuid": "^9.0.1"
+  }
+}
